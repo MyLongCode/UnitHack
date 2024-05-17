@@ -18,7 +18,11 @@ namespace UnitApi.Controllers
         {
             db = context;
         }
-
+        /// <summary>
+        /// Зарегать пользователя
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("/user/register")]
         public IActionResult RegisterUser(UserRegisterRequest dto)
@@ -38,6 +42,20 @@ namespace UnitApi.Controllers
             db.SaveChanges();
             
             return Ok("user created");
+        }
+
+        /// <summary>
+        /// Получить всех пользователей
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/user")]
+        public IActionResult GetAllUsers()
+        {
+            User[] users = db.Users.ToArray();
+            if (users == null)
+                return BadRequest("users undefined");
+            return Ok(users);
         }
         private ClaimsIdentity GetIdentity(string username, string password)
         {
@@ -59,6 +77,11 @@ namespace UnitApi.Controllers
             return null;
         }
 
+        /// <summary>
+        /// Получить токен
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost("/user/token")]
         public IActionResult Token(GetUserTokenRequest dto)
         {

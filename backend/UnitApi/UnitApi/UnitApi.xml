@@ -49,5 +49,39 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:UnitApi.Controllers.ReviewController.CreateReview(UnitApi.dto.Review.CreateReviewRequest,System.Int32)">
+            <summary>
+            Оставить отзыв для товара
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ReviewController.GetReviewsByItemId(System.Int32)">
+            <summary>
+            Получить все отзывы для товара
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.UserController.RegisterUser(Api.Controllers.User.Requests.UserRegisterRequest)">
+            <summary>
+            Зарегать пользователя
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.UserController.GetAllUsers">
+            <summary>
+            Получить всех пользователей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.UserController.Token(Api.Controllers.User.Requests.GetUserTokenRequest)">
+            <summary>
+            Получить токен
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

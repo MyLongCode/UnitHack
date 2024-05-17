@@ -3,15 +3,18 @@ using Logic.Restaurant.Models;
 using Microsoft.AspNetCore.Mvc;
 using UnitApi.dto.Item;
 using UnitApi.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UnitApi.Controllers
 {
     [Route("/item")]
     public class ItemController : Controller
     {
+        IWebHostEnvironment _appEnvironment;
         ApplicationDbContext db;
-        public ItemController(ApplicationDbContext context)
+        public ItemController(ApplicationDbContext context, IWebHostEnvironment appEnvironment)
         {
+            _appEnvironment = appEnvironment;
             db = context;
         }
         /// <summary>
@@ -40,7 +43,7 @@ namespace UnitApi.Controllers
         [Route("/item")]
         public IActionResult GetAllItems([FromQuery] int page = 1, Sort sort = Sort.IdAsc)
         {
-            int pageSize = 10;
+            int pageSize = 9;
             if (page <= 0) page = 1;
             var items = db.Items.ToArray();
             items = sort switch
@@ -65,11 +68,23 @@ namespace UnitApi.Controllers
         [Route("/item")]
         public IActionResult CreateItem(CreateItemRequest dto)
         {
+            string path = "";
+            IFormFile image = dto.Image;
+            if (image != null)
+            {
+                // путь к папке Files
+                path = image.FileName;
+                // сохраняем файл в папку Files в каталоге wwwroot
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + "/Files/" + path, FileMode.Create))
+                {
+                    image.CopyToAsync(fileStream);
+                }
+            }
             Item item = new Item {
                 Title = dto.Title,
                 Description = dto.Description,
                 Cost = dto.Cost,
-                Image = dto.Image,
+                Image = path,
                 Category = dto.Category,
                 Rating = 0
             };

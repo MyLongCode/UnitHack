@@ -1,12 +1,11 @@
-﻿namespace UnitApi.Models
+﻿using UnitApi.Models;
+
+namespace UnitApi.dto.Review
 {
-    public class Review
+    public class CreateReviewRequest
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; }
         public int ItemId { get; set; }
-        public Item Item{ get; set; }
         public string Text { get; set; }
         public int Rating { get; set; }
     }
