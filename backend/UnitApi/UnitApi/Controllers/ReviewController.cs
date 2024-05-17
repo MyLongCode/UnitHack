@@ -24,12 +24,13 @@ namespace UnitApi.Controllers
             Review review = new Review
             {
                 UserId = dto.UserId,
-                ItemId = dto.ItemId,
+                ItemId = id,
                 Text = dto.Text,
                 Rating = dto.Rating,
+                IsModerated = 0,
             };
             db.Reviews.Add(review);
-            var item = db.Items.Find(dto.ItemId);
+            var item = db.Items.Find(id);
             if (dto.Rating > 0)
                 item.Rating++;
             else 
@@ -46,7 +47,7 @@ namespace UnitApi.Controllers
         [Route("/item/{id}/review")]
         public IActionResult GetReviewsByItemId(int id)
         {
-            var reviews = db.Reviews.Where(r => r.ItemId == id).Select(r => new ReviewDto
+            var reviews = db.Reviews.Where(r => r.ItemId == id && r.IsModerated == 1).Select(r => new ReviewDto
             {
                 Id = r.Id,
                 Text = r.Text,
@@ -55,6 +56,52 @@ namespace UnitApi.Controllers
             }).ToArray();
             
             return Ok(reviews);
+        }
+        /// <summary>
+        /// Получить все неотмодерированные отзывы
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/review/moderate")]
+        public IActionResult GetReviewsForModerate()
+        {
+            var reviews = db.Reviews.Where(r => r.IsModerated == 0).Select(r => new ReviewDto
+            {
+                Id = r.Id,
+                Text = r.Text,
+                Rating = r.Rating,
+                UserFullName = r.User.FullName
+            }).ToArray();
+            return Ok(reviews);
+        }
+
+        /// <summary>
+        /// Принять отзыв по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("/review/{id}/verify")]
+        public IActionResult VerifiedReview(int id)
+        {
+            var review = db.Reviews.Find(id);
+            review.IsModerated = 1;
+            db.SaveChanges();
+            return Ok("review is verify");
+        }
+        /// <summary>
+        /// Отклонить отзыв по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("/review/{id}/reject")]
+        public IActionResult RejectReview(int id)
+        {
+            var review = db.Reviews.Find(id);
+            review.IsModerated = -1;
+            db.SaveChanges();
+            return Ok("review is reject");
         }
     }
 }

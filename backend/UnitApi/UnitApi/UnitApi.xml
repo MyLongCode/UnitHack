@@ -63,6 +63,26 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:UnitApi.Controllers.ReviewController.GetReviewsForModerate">
+            <summary>
+            Получить все неотмодерированные отзывы
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ReviewController.VerifiedReview(System.Int32)">
+            <summary>
+            Принять отзыв по id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ReviewController.DeclineReview(System.Int32)">
+            <summary>
+            Отклонить отзыв по id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:UnitApi.Controllers.UserController.RegisterUser(Api.Controllers.User.Requests.UserRegisterRequest)">
             <summary>
             Зарегать пользователя
