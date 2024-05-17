@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnitApi</name>
+    </assembly>
+    <members>
+        <member name="M:UnitApi.Controllers.ItemController.GetAllItems(System.Int32,Logic.Restaurant.Models.Sort)">
+             <summary>
+             Получить все товары
+             </summary>
+             <remarks>
+            
+            
+                 Сортировки 
+                 {
+                    "NameAsc" : По названию по возрастанию алфавита, 
+                    "NameDesc" : По названию по убыванию алфавита,
+                    "IdAsc" : Сначала старые,
+                    "IdDesc": Сначала новые,
+                    "RatingAsc" : Сначала плохие, 
+                    "RatingDesc" : Сначала хорошие,
+                    "CostAsc" : Сначала дешёвые,
+                    "CostDesc": Сначала дорогие
+                 }
+             
+             page - страничка для пагинации (вроде выдаёт по 10 :) )
+             
+             </remarks>
+             <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ItemController.CreateItem(UnitApi.dto.Item.CreateItemRequest)">
+            <summary>
+            Создать новый товар
+            </summary>
+            <param name="dto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
