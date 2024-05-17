@@ -10,5 +10,6 @@
         public string Image { get; set; }
         public string Category { get; set; }
         public double Rating { get; set; }
+        public bool InStock { get; set; }
     }
 }

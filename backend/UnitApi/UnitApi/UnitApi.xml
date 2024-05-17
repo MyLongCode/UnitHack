@@ -76,7 +76,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:UnitApi.Controllers.ReviewController.DeclineReview(System.Int32)">
+        <member name="M:UnitApi.Controllers.ReviewController.RejectReview(System.Int32)">
             <summary>
             Отклонить отзыв по id
             </summary>
