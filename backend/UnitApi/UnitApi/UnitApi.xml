@@ -35,5 +35,19 @@
             <param name="dto"></param>
             <returns></returns>
         </member>
+        <member name="M:UnitApi.Controllers.ItemController.DeleteItem(System.Int32)">
+            <summary>
+            Удалить товар по id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ItemController.GetItemById(System.Int32)">
+            <summary>
+            Получить товар по Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

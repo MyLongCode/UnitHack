@@ -98,7 +98,7 @@ namespace UnitApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/item")]
+        [Route("/item/{id}")]
         public IActionResult GetItemById(int id)
         {
             Item item = db.Items.Find(id);

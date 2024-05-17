@@ -41,7 +41,8 @@ namespace UnitApi.Controllers
         }
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            if (CheckUserPassword(username, password) != false)
+            User? user = db.Users.FirstOrDefault(x => x.Email == username && x.Password == password);
+            if ((user == null) == false)
             {
                 var claims = new List<Claim>
                 {
@@ -84,12 +85,6 @@ namespace UnitApi.Controllers
                 username = identity.Name
             };
             return Ok(response);
-        }
-
-        public bool CheckUserPassword(string email, string password)
-        {
-            User? user = db.Users.FirstOrDefault(x => x.Email == email && x.Password == password);
-            return !(user == null);
         }
     }
 }
