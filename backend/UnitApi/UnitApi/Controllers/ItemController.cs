@@ -87,7 +87,8 @@ namespace UnitApi.Controllers
                 Cost = dto.Cost,
                 Image = path,
                 Category = dto.Category,
-                Rating = 0
+                Rating = 0,
+                InStock = true
             };
             db.Items.Add(item);
             db.SaveChanges();
@@ -121,6 +122,37 @@ namespace UnitApi.Controllers
             if (item == null)
                 return BadRequest("item undefined");
             return Ok(item);
+        }
+
+        /// <summary>
+        /// Товара нет в наличии
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("/item/{id}/absent")]
+        public IActionResult AbsentItem(int id)
+        {
+            var item = db.Items.Find(id);
+            if (item == null) return BadRequest("item is not found");
+            item.InStock = false;
+            db.SaveChanges();
+            return Ok("now item not in stock");
+        }
+        /// <summary>
+        /// Товар в наличии
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPatch]
+        [Route("/item/{id}/stock")]
+        public IActionResult StockItem(int id)
+        {
+            var item = db.Items.Find(id);
+            if (item == null) return BadRequest("item is not found");
+            item.InStock = true;
+            db.SaveChanges();
+            return Ok("now item in stock");
         }
     }
 }

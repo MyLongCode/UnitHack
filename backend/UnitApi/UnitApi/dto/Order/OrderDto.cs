@@ -1,9 +1,8 @@
 ﻿using UnitApi.dto.Item;
-using UnitDal.Models;
 
 namespace UnitApi.dto.Order
 {
-    public class GetOrderResponse
+    public class OrderDto
     {
         public int Id { get; set; }
         public int? UserId { get; set; }
@@ -17,5 +16,4 @@ namespace UnitApi.dto.Order
         public DateTime DeliveryDate { get; set; }
         public DateTime CreatedTime { get; set; }
     }
-
 }

@@ -7,6 +7,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using UnitDal.Models;
 using EFCore;
+using UnitApi.dto.Order;
+using UnitApi.dto.Item;
+
 namespace UnitApi.Controllers
 {
     [Route("/user")]
@@ -56,6 +59,46 @@ namespace UnitApi.Controllers
                 return BadRequest("users undefined");
             return Ok(users);
         }
+
+        [HttpGet]
+        [Route("/user/{id}/order")]
+        public IActionResult GetOrdersByUser(int id)
+        {
+            var orders = db.Orders.Where(o => o.UserId == id).Select(i => GetOrderDtoById(i.Id));
+            return Ok(orders);
+
+        }
+        private OrderDto GetOrderDtoById(int id)
+        {
+            var order = db.Orders.Find(id);
+            return new OrderDto
+            {
+                Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
+                TotalCost = order.TotalCost,
+                Status = order.Status,
+                UserPhone = order.UserPhone,
+                UserEmail = order.UserEmail,
+                UserFullName = order.UserFullName,
+                DeliveryAddress = order.DeliveryAddress,
+                DeliveryDate = order.DeliveryDate,
+                CreatedTime = order.CreatedTime,
+            };
+        }
+        private ItemDto GetItemDtoById(int id)
+        {
+            var item = db.Items.Find(id);
+            return new ItemDto
+            {
+                Title = item.Title,
+                Description = item.Description,
+                Cost = item.Cost,
+                Image = item.Image,
+                Category = item.Category,
+                Rating = item.Rating,
+
+            };
+        }
+
         private ClaimsIdentity GetIdentity(string username, string password)
         {
             User? user = db.Users.FirstOrDefault(x => x.Email == username && x.Password == password);

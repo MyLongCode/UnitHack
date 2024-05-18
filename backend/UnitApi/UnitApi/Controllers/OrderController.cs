@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Components.Web;
 using UnitDal.Models;
 using EFCore;
 using Org.BouncyCastle.Crypto.Operators;
+using UnitApi.dto.Item;
+using Microsoft.EntityFrameworkCore;
 
 namespace UnitApi.Controllers
 {
@@ -45,14 +47,35 @@ namespace UnitApi.Controllers
             SendEmailAsync(dto.UserEmail, String.Join(", ", titleItems), dto.DeliveryAddress, dto.DeliveryDate);
             return Ok("order is created");
         }
-
+        /// <summary>
+        /// Получить все заказы
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/order")]
+        public IActionResult GetAllOrders()
+        {
+            var orders = db.Orders.Select(order => GetOrderDtoById(order.Id)).ToList();
+            return Ok(orders);
+        }
+        /// <summary>
+        /// Получить заказ по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("/order/{id}")]
-        [ProducesResponseType(typeof(GetOrderResponse), 200)]
-        public IActionResult GetAllOrders(int id)
+        public IActionResult GetOrderById(int id)
         {
             var order = db.Orders.Find(id);
-            return Ok(new GetOrderResponse
+            if (order == null) return BadRequest("order is not found");
+            return Ok(GetOrderDtoById(id));
+        }
+
+        private OrderDto GetOrderDtoById(int id)
+        {
+            var order = db.Orders.Find(id);
+            return new OrderDto
             {
                 Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
                 TotalCost = order.TotalCost,
@@ -63,9 +86,8 @@ namespace UnitApi.Controllers
                 DeliveryAddress = order.DeliveryAddress,
                 DeliveryDate = order.DeliveryDate,
                 CreatedTime = order.CreatedTime,
-            });
+            };
         }
-
         private ItemDto GetItemDtoById(int id)
         {
             var item = db.Items.Find(id);
@@ -77,6 +99,7 @@ namespace UnitApi.Controllers
                 Image = item.Image,
                 Category = item.Category,
                 Rating = item.Rating,
+                
             };
         }
 

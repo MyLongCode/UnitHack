@@ -49,11 +49,38 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:UnitApi.Controllers.ItemController.AbsentItem(System.Int32)">
+            <summary>
+            Товара нет в наличии
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.ItemController.StockItem(System.Int32)">
+            <summary>
+            Товар в наличии
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:UnitApi.Controllers.OrderController.CreateOrder(UnitApi.dto.Order.CreateOrderRequest)">
             <summary>
             Создать заказ
             </summary>
             <param name="dto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.OrderController.GetAllOrders">
+            <summary>
+            Получить все заказы
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnitApi.Controllers.OrderController.GetOrderById(System.Int32)">
+            <summary>
+            Получить заказ по id
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:UnitApi.Controllers.ReviewController.CreateReview(UnitApi.dto.Review.CreateReviewRequest,System.Int32)">
