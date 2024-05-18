@@ -18,7 +18,7 @@ namespace EFCore
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

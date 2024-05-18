@@ -41,11 +41,12 @@ namespace UnitApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("/item")]
-        public IActionResult GetAllItems([FromQuery] int page = 1, Sort sort = Sort.IdAsc)
+        public IActionResult GetAllItems([FromQuery] string? category, int page = 1, Sort sort = Sort.IdAsc)
         {
             int pageSize = 9;
             if (page <= 0) page = 1;
             var items = db.Items.ToArray();
+            if (category != null) items = items.Where(i => i.Category == category).ToArray();
             items = sort switch
             {
                 Sort.NameAsc => items.OrderBy(r => r.Title).ToArray(),

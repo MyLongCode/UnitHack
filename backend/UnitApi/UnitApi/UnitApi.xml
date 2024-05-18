@@ -4,7 +4,7 @@
         <name>UnitApi</name>
     </assembly>
     <members>
-        <member name="M:UnitApi.Controllers.ItemController.GetAllItems(System.Int32,Logic.Restaurant.Models.Sort)">
+        <member name="M:UnitApi.Controllers.ItemController.GetAllItems(System.String,System.Int32,Logic.Restaurant.Models.Sort)">
              <summary>
              Получить все товары
              </summary>
