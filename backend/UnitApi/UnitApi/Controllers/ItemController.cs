@@ -2,6 +2,7 @@
 using EFCore;
 using Logic.Restaurant.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using UnitApi.dto.Item;
 using UnitDal.Models;
 
@@ -58,6 +59,8 @@ namespace UnitApi.Controllers
                 Sort.CostAsc => items.OrderBy(r => r.Rating).ToArray(),
                 Sort.CostDesc => items.OrderByDescending(r => r.Rating).ToArray(),
             };
+            foreach(var item in items)
+                item.Image = "http://unithack.somee.com" + "/wwwroot/Files/" + item.Image;
             return Ok(items.Skip((page - 1) * pageSize).Take(pageSize).ToList());
         }
         /// <summary>
@@ -74,9 +77,9 @@ namespace UnitApi.Controllers
             if (image != null)
             {
                 // путь к папке Files
-                path = "http://unithack.somee.com/wwwroot" + "/Files/" + image.FileName;
+                path =image.FileName;
                 // сохраняем файл в папку Files в каталоге wwwroot
-                using (var fileStream = new FileStream( path, FileMode.Create))
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + "/Files/" + path, FileMode.Create))
                 {
                     image.CopyToAsync(fileStream);
                 }
@@ -122,6 +125,7 @@ namespace UnitApi.Controllers
             Item item = db.Items.Find(id);
             if (item == null)
                 return BadRequest("item undefined");
+            item.Image = "http://unithack.somee.com" + "/wwwroot/Files/" + item.Image;
             return Ok(item);
         }
 
