@@ -8,5 +8,6 @@ namespace UnitApi.dto.Review
         public string UserFullName { get; set; }
         public string Text { get; set; }
         public int Rating { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

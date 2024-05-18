@@ -28,6 +28,7 @@ namespace UnitApi.Controllers
                 Text = dto.Text,
                 Rating = dto.Rating,
                 IsModerated = 0,
+                CreatedTime = DateTime.Now,
             };
             db.Reviews.Add(review);
             var item = db.Items.Find(id);
@@ -52,7 +53,8 @@ namespace UnitApi.Controllers
                 Id = r.Id,
                 Text = r.Text,
                 Rating = r.Rating,
-                UserFullName = r.User.FullName
+                UserFullName = r.User.FullName,
+                CreatedTime = r.CreatedTime
             }).ToArray();
             
             return Ok(reviews);
@@ -70,7 +72,9 @@ namespace UnitApi.Controllers
                 Id = r.Id,
                 Text = r.Text,
                 Rating = r.Rating,
-                UserFullName = r.User.FullName
+                UserFullName = r.User.FullName,
+                CreatedTime = r.CreatedTime
+
             }).ToArray();
             return Ok(reviews);
         }

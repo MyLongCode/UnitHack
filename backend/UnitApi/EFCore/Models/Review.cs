@@ -10,5 +10,6 @@
         public string Text { get; set; }
         public int Rating { get; set; }
         public int IsModerated { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }
