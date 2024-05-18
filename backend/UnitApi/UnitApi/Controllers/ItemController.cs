@@ -74,9 +74,9 @@ namespace UnitApi.Controllers
             if (image != null)
             {
                 // путь к папке Files
-                path = image.FileName;
+                path = "http://unithack.somee.com/wwwroot" + "/Files/" + image.FileName;
                 // сохраняем файл в папку Files в каталоге wwwroot
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + "/Files/" + path, FileMode.Create))
+                using (var fileStream = new FileStream( path, FileMode.Create))
                 {
                     image.CopyToAsync(fileStream);
                 }
@@ -107,6 +107,7 @@ namespace UnitApi.Controllers
             if (item== null)
                 return BadRequest("item undefined");
             db.Items.Remove(item);
+            db.SaveChanges();
             return Ok("item deleted");
         }
         /// <summary>

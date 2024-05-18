@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\" />
+    <ProjectReference Include="..\EFCore\UnitDal.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EFCore\UnitDal.csproj" />
+    <Folder Include="wwwroot\Files\" />
   </ItemGroup>
 
 </Project>
