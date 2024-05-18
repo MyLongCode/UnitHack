@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
+    options.AddDefaultPolicy(
                       policy =>
                       {
                           policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
@@ -66,11 +66,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCors(MyAllowSpecificOrigins);
-
-app.UseAuthorization();
-app.MapControllers();
-app.Run();
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
