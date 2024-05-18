@@ -55,7 +55,9 @@ namespace UnitApi.Controllers
         [Route("/order")]
         public IActionResult GetAllOrders()
         {
-            var orders = db.Orders.Select(order => GetOrderDtoById(order.Id)).ToList();
+            List<OrderDto> orders = new List<OrderDto>();
+            foreach (var item in db.Orders)
+                orders.Add(GetOrderDtoById(item.Id));
             return Ok(orders);
         }
         /// <summary>
@@ -74,33 +76,40 @@ namespace UnitApi.Controllers
 
         private OrderDto GetOrderDtoById(int id)
         {
-            var order = db.Orders.Find(id);
-            return new OrderDto
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
-                TotalCost = order.TotalCost,
-                Status = order.Status,
-                UserPhone = order.UserPhone,
-                UserEmail = order.UserEmail,
-                UserFullName = order.UserFullName,
-                DeliveryAddress = order.DeliveryAddress,
-                DeliveryDate = order.DeliveryDate,
-                CreatedTime = order.CreatedTime,
-            };
+                var order = db.Orders.Find(id);
+                return new OrderDto
+                {
+                    Id = id,
+                    Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
+                    TotalCost = order.TotalCost,
+                    Status = order.Status,
+                    UserPhone = order.UserPhone,
+                    UserEmail = order.UserEmail,
+                    UserFullName = order.UserFullName,
+                    DeliveryAddress = order.DeliveryAddress,
+                    DeliveryDate = order.DeliveryDate,
+                    CreatedTime = order.CreatedTime,
+                };
+            }
         }
         private ItemDto GetItemDtoById(int id)
         {
-            var item = db.Items.Find(id);
-            return new ItemDto
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                Title = item.Title,
-                Description = item.Description,
-                Cost = item.Cost,
-                Image = item.Image,
-                Category = item.Category,
-                Rating = item.Rating,
-                
-            };
+                var item = db.Items.Find(id);
+                return new ItemDto
+                {
+                    Title = item.Title,
+                    Description = item.Description,
+                    Cost = item.Cost,
+                    Image = item.Image,
+                    Category = item.Category,
+                    Rating = item.Rating,
+
+                };
+            }
         }
 
         public async Task SendEmailAsync(string email, string titleItems, string deliveryAddress, DateTime delivaryDate)

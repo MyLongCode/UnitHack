@@ -20,6 +20,10 @@ namespace EFCore
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
+        public ApplicationDbContext()
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=dpg-cp43i1n79t8c73e9u0ag-a.oregon-postgres.render.com;Port=5432;Database=unithack;Username=admin;Password=rtEDGo8Gb350Z1zo4wxIl54dt7UJOMnP;");

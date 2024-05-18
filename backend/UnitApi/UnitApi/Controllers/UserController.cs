@@ -64,39 +64,49 @@ namespace UnitApi.Controllers
         [Route("/user/{id}/order")]
         public IActionResult GetOrdersByUser(int id)
         {
-            var orders = db.Orders.Where(o => o.UserId == id).Select(i => GetOrderDtoById(i.Id));
+            List<OrderDto> orders = new List<OrderDto>();
+            foreach (var item in db.Orders.Where(o => o.UserId == id))
+                orders.Add(GetOrderDtoById(item.Id));
             return Ok(orders);
 
         }
         private OrderDto GetOrderDtoById(int id)
         {
-            var order = db.Orders.Find(id);
-            return new OrderDto
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
-                TotalCost = order.TotalCost,
-                Status = order.Status,
-                UserPhone = order.UserPhone,
-                UserEmail = order.UserEmail,
-                UserFullName = order.UserFullName,
-                DeliveryAddress = order.DeliveryAddress,
-                DeliveryDate = order.DeliveryDate,
-                CreatedTime = order.CreatedTime,
-            };
+                var order = db.Orders.Find(id);
+                return new OrderDto
+                {
+                    Id = id,
+                    UserId = order.UserId,
+                    Items = order.ItemsId.Select(o => GetItemDtoById(o)).ToList(),
+                    TotalCost = order.TotalCost,
+                    Status = order.Status,
+                    UserPhone = order.UserPhone,
+                    UserEmail = order.UserEmail,
+                    UserFullName = order.UserFullName,
+                    DeliveryAddress = order.DeliveryAddress,
+                    DeliveryDate = order.DeliveryDate,
+                    CreatedTime = order.CreatedTime,
+                };
+            }
         }
         private ItemDto GetItemDtoById(int id)
         {
-            var item = db.Items.Find(id);
-            return new ItemDto
+            using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                Title = item.Title,
-                Description = item.Description,
-                Cost = item.Cost,
-                Image = item.Image,
-                Category = item.Category,
-                Rating = item.Rating,
+                var item = db.Items.Find(id);
+                return new ItemDto
+                {
+                    Title = item.Title,
+                    Description = item.Description,
+                    Cost = item.Cost,
+                    Image = item.Image,
+                    Category = item.Category,
+                    Rating = item.Rating,
 
-            };
+                };
+            }
         }
 
         private ClaimsIdentity GetIdentity(string username, string password)
