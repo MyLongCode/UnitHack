@@ -1,8 +1,8 @@
-﻿using Dal.EF;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using UnitApi.dto.Review;
-using UnitApi.Models;
-
+using UnitDal.Models;
+using EFCore;
 namespace UnitApi.Controllers
 {
     public class ReviewController : Controller

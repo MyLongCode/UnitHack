@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\backend"
+    "\\backend",
+    "\\backend\\UnitApi"
   ],
-  "SelectedNode": "\\backend",
+  "SelectedNode": "\\backend\\UnitApi\\UnitApi.sln",
   "PreviewInSolutionExplorer": false
 }

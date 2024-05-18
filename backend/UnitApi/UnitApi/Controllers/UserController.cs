@@ -1,13 +1,12 @@
 ﻿using Api.Controllers.User.Requests;
 using Api.Models;
-using Dal.EF;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using UnitApi.Models;
-
+using UnitDal.Models;
+using EFCore;
 namespace UnitApi.Controllers
 {
     [Route("/user")]

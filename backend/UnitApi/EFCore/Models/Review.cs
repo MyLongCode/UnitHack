@@ -1,4 +1,4 @@
-﻿namespace UnitApi.Models
+﻿namespace UnitDal.Models
 {
     public class Review
     {
