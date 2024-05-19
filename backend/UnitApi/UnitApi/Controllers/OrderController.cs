@@ -25,7 +25,7 @@ namespace UnitApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("/order")]
-        public IActionResult CreateOrder(CreateOrderRequest dto)
+        public IActionResult CreateOrder([FromBody] CreateOrderRequest dto)
         {
             var order = new Order
             {

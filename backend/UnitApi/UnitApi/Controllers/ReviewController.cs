@@ -19,7 +19,7 @@ namespace UnitApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("/item/{id}/review")]
-        public IActionResult CreateReview(CreateReviewRequest dto, int id)
+        public IActionResult CreateReview([FromBody] CreateReviewRequest dto, int id)
         {
             Review review = new Review
             {

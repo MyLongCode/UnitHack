@@ -70,7 +70,7 @@ namespace UnitApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("/item")]
-        public IActionResult CreateItem(CreateItemRequest dto)
+        public IActionResult CreateItem([FromBody] CreateItemRequest dto)
         {
             string path = "";
             IFormFile image = dto.Image;

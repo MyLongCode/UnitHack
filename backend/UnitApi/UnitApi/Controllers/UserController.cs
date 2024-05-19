@@ -1,6 +1,5 @@
 ﻿using Api.Controllers.User.Requests;
 using Api.Models;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -27,7 +26,7 @@ namespace UnitApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("/user/register")]
-        public IActionResult RegisterUser(UserRegisterRequest dto)
+        public IActionResult RegisterUser([FromBody] UserRegisterRequest dto)
         {
             var userFound = db.Users.FirstOrDefault(u => u.Email == dto.Email);
             if (userFound != null) return BadRequest("user with this email is already register");
